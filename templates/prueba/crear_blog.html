@@ -1,0 +1,14 @@
+{% load static %}
+<htm>
+    <head>
+        <link rel="stylesheet" href="{% static 'prueba/formulario.css' %}" />
+        <title>Lista de blogs</title>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Guardar</button>
+        </form>
+    </body>
+</htm>

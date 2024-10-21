@@ -1,0 +1,14 @@
+<htm>
+    <head>
+        <title>Detalles del blog {{blog.titulo}}</title>
+    </head>
+    <body>
+        <h2>Detalles del blog {{blog.titulo}}</h2>
+        <p>{{ blog.contenido }}</p>
+        {% for blog_d in blog %}
+            <h2>{{blog_d.titulo}}</h2>
+            <h2>{{blog_d.categoria}}</h2>
+            <p>{{blog_d.contenido}}</p>
+        {% endfor %}
+    </body>
+</htm>

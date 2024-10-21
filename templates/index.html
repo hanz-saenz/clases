@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Index
+{% endblock %}
+
+{% block content %}
+<!-- ##### PROMOTION #####-->
+<section id="promotion">
+    <div class="root">
+      <div class="nav">
+        <div class="container max-md">
+          <a class="prev" id="promotion_prev" href="#!"><i class="material-icons icon">keyboard_arrow_left</i></a>
+          <a class="next" id="promotion_next" href="#!"><i class="material-icons icon">keyboard_arrow_right</i></a>
+        </div>
+      </div>
+      <div class="slider-wrap">
+        <div class="slide slider-content" id="promotion_slider">
+          {% for blog in datos_blog %}
+            <div class="inner item">
+                <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 col-md-3 promo-image">
+                    <section>
+                        <div class="image">
+                        <span class="icon ion-cube"></span>
+                        </div>
+                    </section>
+                    </div>
+                    <div class="col-md-7 col-sm-8">
+                    <div class="text">
+                        <h1><a class="btn-flat"><span class="btn-content">{{blog.titulo}}</span></a></h1>
+                        <p class="use-text-subtitle2">{{blog.contenido}}.</p>
+                        <div class="time">
+                        <h6 class="use-text-caption">
+                            <span>periode : 12 Jul - 10 Aug</span>
+                        </h6>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+          {% endfor %}
+
+        </div>
+        <div class="cloud-top">
+          <svg>
+            <g transform="translate(0.000000, -10.000000)">
+              <g transform="translate(628.500000, 205.500000) scale(1, -1) translate(-628.500000, -205.500000) translate(-17.000000, 10.000000)">
+                <ellipse cx="235" cy="205" rx="114" ry="95"></ellipse>
+                <ellipse cx="95" cy="161.5" rx="95" ry="78.5"></ellipse>
+                <ellipse cx="429.5" cy="169.5" rx="145.5" ry="121.5"></ellipse>
+                <ellipse cx="678" cy="125.5" rx="151" ry="125.5"></ellipse>
+                <ellipse cx="865.5" cy="174.5" rx="100.5" ry="83.5"></ellipse>
+                <ellipse cx="1095" cy="227.5" rx="196" ry="163.5"></ellipse>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="cloud-top-cover">
+          <svg>
+            <g transform="translate(0.000000, -10.000000)">
+              <g transform="translate(628.500000, 205.500000) scale(1, -1) translate(-628.500000, -205.500000) translate(-17.000000, 10.000000)">
+                <ellipse cx="235" cy="205" rx="114" ry="95"></ellipse>
+                <ellipse cx="95" cy="161.5" rx="95" ry="78.5"></ellipse>
+                <ellipse cx="429.5" cy="169.5" rx="145.5" ry="121.5"></ellipse>
+                <ellipse cx="678" cy="125.5" rx="151" ry="125.5"></ellipse>
+                <ellipse cx="865.5" cy="174.5" rx="100.5" ry="83.5"></ellipse>
+                <ellipse cx="1095" cy="227.5" rx="196" ry="163.5"></ellipse>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section><!-- ##### PROMOTION #####-->
+
+{% endblock %}

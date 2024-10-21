@@ -1,0 +1,13 @@
+<htm>
+    <head>
+        <title>Eliminar el blog {{blog.titulo}}</title>
+    </head>
+    <body>
+        <h2>Eliminar el blog {{blog.titulo}}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+        <a href="{% url 'lista_blogs' %}">Cancelar</a>
+    </body>
+</htm>

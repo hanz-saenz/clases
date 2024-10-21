@@ -1,0 +1,22 @@
+<htm>
+    <head>
+        <title>Resultado de busqueda</title>
+    </head>
+    <body>
+        <h2>Resultado de busqueda</h2>
+        {% if resultados %}
+            {% for blog in resultados %}
+                {{ blog.titulo}}
+            {% endfor %}
+
+        {% else %}
+
+            <p>No se encontraron resultados</p>
+        {% endif %}
+
+        <form method="get" action="{% url 'buscar_blog' %}">
+            <input type="text" name="q" value="{{ query }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </body>
+</htm>

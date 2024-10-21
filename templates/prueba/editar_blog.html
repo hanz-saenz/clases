@@ -1,0 +1,14 @@
+<htm></htm>
+    <head>
+        <title>Editar el blog {{blog.titulo}}</title>
+    </head>
+    <body>
+        <h2>Editar el blog {{blog.titulo}}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Guardar</button>
+        </form>
+        <a href="{% url 'lista_blogs' %}">Cancelar</a>
+    </body>
+</htm>

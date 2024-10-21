@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="7px" height="128px" viewBox="0 0 7 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="main" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g transform="translate(-407.000000, -3715.000000)">
+            <g transform="translate(170.000000, 3715.000000)">
+                <g id="Left" transform="translate(32.000000, 0.000000)">
+                    <g id="droplet" transform="translate(205.444444, 0.000000)">
+                        <rect id="Rectangle" x="-1.26565425e-14" y="80" width="6" height="48" rx="3"></rect>
+                        <rect id="Rectangle" x="1.01030295e-13" y="35" width="6" height="28" rx="3"></rect>
+                        <rect id="Rectangle" x="1.01030295e-13" y="0" width="6" height="20.5" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

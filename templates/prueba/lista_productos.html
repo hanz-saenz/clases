@@ -1,0 +1,32 @@
+<htm>
+    <head>
+        <title>Lista de blogs</title>
+    </head>
+    <body>
+        <h2>Lista de Blogs</h2>
+        <a href="{% url 'crear_blog' %}">Crear Blog</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Contenido</th>
+                    <th>Categoría</th>
+                    <th>Opción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in object_list %}
+                    <tr>
+                        <td><a href="{% url 'detalle_blog' blog.id %}">{{blog.titulo}}</a></td>
+                        <td>{{blog.contenido}}</td>
+                        <td>{{blog.categoria}}</td>
+                        <td>
+                            <a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a>
+                            <a href="{% url 'actualizar_blog' blog.id %}">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</htm>
