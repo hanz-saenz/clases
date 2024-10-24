@@ -19,6 +19,7 @@ class Blog(models.Model):
 
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    fecha_publicacion = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.titulo} - {str(self.id)}'

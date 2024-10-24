@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import crear_categoria, VistaUnBlog, VistaDeBlogs2,MiVistaViews, ListaBlog, CrearBlog, nuevo_formulario, blog_detalle, eliminar_blog, actualizar_blog , buscar_blog, ListaCategoria, CrearCategoria, VistaBlog, VistaDeBlogs
+from .views import CustomTokenObtainPairView, crear_categoria, VistaUnBlog, VistaDeBlogs2,MiVistaViews, ListaBlog, CrearBlog, nuevo_formulario, blog_detalle, eliminar_blog, actualizar_blog , buscar_blog, ListaCategoria, CrearCategoria, VistaBlog, VistaDeBlogs
 
 urlpatterns = [
     path('mivista/', MiVistaViews.as_view(), name='mi_vista'),
@@ -20,4 +20,6 @@ urlpatterns = [
 
     path('api/blog/<int:blog_id>', VistaUnBlog.as_view(), name='aapi_detalles_blog'),
     path('api/blog/crear/', crear_categoria, name='blo_crear_api'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+
 ]

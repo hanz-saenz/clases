@@ -1,13 +1,22 @@
 {% load static %}
 <htm>
     <head>
-        <link rel="stylesheet" href="{% static 'prueba/formulario.css' %}" />
+        <!-- <link rel="stylesheet" href="{% static 'prueba/formulario.css' %}" /> -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <title>Lista de blogs</title>
     </head>
     <body>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
+              <!-- {{ form.titulo.label}}
+              {{ form.titulo}}
+
+              <div class="form-group">
+                {{ form.daterange.label }}
+                {{ form.daterange }} -->
+
+            </div>
             <button type="submit">Guardar</button>
         </form>
     </body>

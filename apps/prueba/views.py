@@ -60,7 +60,11 @@ def nuevo_formulario(request):
     if request.method == 'POST':
         formulario = FormularioBlog(request.POST)
         if formulario.is_valid():
-            formulario.save()
+            subtitulo = formulario.cleaned_data['subtitulo']
+            # archivo = request.FILES['archivo']
+            print('subtitulo', subtitulo)
+            print('archivo', request.FILES.get('archivo'))
+            # formulario.save()
             return redirect('lista_blogs')
     else:
         formulario = FormularioBlog()
@@ -150,23 +154,40 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 class PaginaBlog(PageNumberPagination):
     page_size = 2
 
+
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 class NuevosPermisos(BasePermission):
     def has_permission(self, request, view):
         if request.method == 'GET':
-             if request.user.username == 'rosa':
-                return True
-             else: 
-                return False
+            return request.user.username == 'admin'
         else:
-            return False
+            return request.user.username == 'admin'
+        return False
 
+# Serializer personalizado para el token
+class CustomTokenSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username  # Agrega el nombre de usuario al token
+        return token
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenSerializer
+
+
+# Vista para manejar el blog
 class VistaBlog(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-    pagination_class = PaginaBlog
+    # pagination_class = PaginaBlog
     filter_backends = [filters.SearchFilter]
     search_fields = ['titulo']
     permission_classes = [NuevosPermisos]
+
+
 
 
 from rest_framework.views import APIView
