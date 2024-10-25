@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  clases:
+    image: clases
+    command: 'python3 manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - .:/clases
+    environment:
+      TZ: 'America/Bogota'
+    ports:
+      - '8000:8000'
