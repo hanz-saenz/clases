@@ -7,6 +7,20 @@ services:
     volumes:
       - .:/clases
     environment:
+      VIRTUAL_HOST: 'prueba.aulamatriz.edu.co'
+      LETSENCRYPT_HOST: 'prueba.aulamatriz.edu.co'
+      letsencrypt_email: 'hanzbk@gmail.com'
+      VIRTUAL_PORT: '8000'
       TZ: 'America/Bogota'
-    ports:
-      - '8000:8000'
+    # ports:
+    #   - '8000:8000'
+
+    networks:
+      - default
+      - nginx_proxy
+
+
+networks:
+  default:
+  nginx_proxy:
+    external: true
