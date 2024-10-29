@@ -240,9 +240,4 @@ class CategoriaListaCreateView(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
-    def list(self, request, *args, **kwargs):
-        print(self.get_queryset())
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
     
