@@ -16,7 +16,10 @@ class BlogSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # Extrae la categoría
+        
         categoria_data = validated_data.pop('categoria', None)
+
+        print('categoria_data', categoria_data)
         
         # Actualiza los campos de Blog
         instance.titulo = validated_data.get('titulo', instance.titulo)
@@ -24,9 +27,9 @@ class BlogSerializer(serializers.ModelSerializer):
 
         # Si se proporcionó una categoría, actualízala
         if categoria_data:
-            categoria_id = categoria_data.get('id', None)
-            if categoria_id:
-                instance.categoria = Categoria.objects.get(id=categoria_id)
+            categoria_nombre = categoria_data.get('nombre', None)
+            if categoria_nombre:
+                instance.categoria = Categoria.objects.get(nombre=categoria_nombre)
 
         # Guarda los cambios en la instancia
         instance.save()
