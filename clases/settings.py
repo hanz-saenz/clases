@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+import environ
+
+env = environ.Env()
+env.read_env('.env')
+
+print(env('USER_DATABASE'))
+
 
 # Application definition
 
@@ -86,11 +93,31 @@ WSGI_APPLICATION = 'clases.wsgi.application'
 # }
 
 
+## configuracion sentry
+
+
+import sentry_sdk
+
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://d9786b5524de1ce5ef17dbab96f76389@o4508213948121088.ingest.us.sentry.io/4508213950021632",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    _experiments={
+        # Set continuous_profiling_auto_start to True
+        # to automatically start the profiler on when
+        # possible.
+        "continuous_profiling_auto_start": True,
+    },
+)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'clase',
-        'USER': 'postgres',
+        'USER': env('USER_DATABASE'),
         'PASSWORD': 'admin',
         'HOST': 'localhost',  # o la IP de tu servidor de base de datos
         'PORT': '5432',       # el puerto de PostgreSQL
@@ -157,3 +184,16 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+
+## Configuracion de cacheo redis
+CACHE = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+

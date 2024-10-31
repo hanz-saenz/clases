@@ -8,27 +8,45 @@ from django.views import View
 def bienvenida(request):
     return HttpResponse('Bienvenido a mi app')
 
+from django.core.cache import cache
+from django_ratelimit.decorators import ratelimit
+
+@ratelimit(key='ip', rate='5/m')
 def nueva_bienvenida(request):
-    ## crear registro 1
-    # crear_registro = Blog(titulo='Blog 2', contenido='Contenido del blog 2')
-    # crear_registro.save()
-    ## crear registro 2
 
-    #crear_segundo_registro = Blog.objects.create(titulo='Blog 3', contenido='Contenido del blog 3')
+    datos_blog = cache.get('datos_blog') 
 
-    datos_blog = Blog.objects.all()
+    if not datos_blog:
+        datos_blog = Blog.objects.all()
+        cache.set('datos_blog', datos_blog, 60 * 15)
+
+        print(cache)
     return render(request, 'index.html', context={'datos_blog': datos_blog})
 
 
 ## Vistas basadas en clases
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
+TIEMPO_CACHE = 60 * 15
 
 class MiVistaViews(View):
 
     def post(self, request):
         return HttpResponse('Esta es una vista POST')
     
+    @method_decorator(cache_page(TIEMPO_CACHE))
     def get(self, request):
         print(request)
+
+        if request.user:
+            llave_cache = f"llave_cache_{request.user.username}"
+        else:
+            llave_cache = "llave_cache_anonimo"
+        
+        data_cache_llave = cache.get(llave_cache)
+        cache.set(llave_cache, data_cache_llave, TIEMPO_CACHE)
+
         return HttpResponse('Esta es una vista GET')
     
 
@@ -55,16 +73,21 @@ class CrearBlog(CreateView):
 
 
 from .forms import FormularioBlog
+
+import bleach
 # Vista para el formulario
 def nuevo_formulario(request):
     if request.method == 'POST':
         formulario = FormularioBlog(request.POST)
         if formulario.is_valid():
             subtitulo = formulario.cleaned_data['subtitulo']
+            subtitulo_limpio = bleach.clean(subtitulo)
             # archivo = request.FILES['archivo']
             print('subtitulo', subtitulo)
+            print('subtitulo_limpio', subtitulo_limpio)
             print('archivo', request.FILES.get('archivo'))
             # formulario.save()
+            
             return redirect('lista_blogs')
     else:
         formulario = FormularioBlog()
@@ -231,6 +254,7 @@ def crear_categoria(request):
 class BlogListCrateView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    permission_classes = [IsAuthenticated]
 
 class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
@@ -240,4 +264,11 @@ class CategoriaListaCreateView(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
-    
+
+def vista_select_related(request):
+
+    # blog = Blog.objects.select_related('categoria').all()
+    blog = Blog.objects.prefetch_related('categoria').all()
+    for b in blog:
+        print(b.titulo)
+        print(b.categoria)

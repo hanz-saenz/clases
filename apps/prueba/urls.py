@@ -1,6 +1,9 @@
 from django.urls import path
 from .views import *
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path('mivista/', MiVistaViews.as_view(), name='mi_vista'),
     path('blogs/', ListaBlog.as_view(), name='lista_blogs'),
@@ -24,5 +27,7 @@ urlpatterns = [
     path('api/lista_blogs/', BlogListCrateView.as_view(), name='api_lista_blogs'),
     path('api/lista_blogs/<int:pk>', BlogDetailView.as_view(), name='api_lista_blogs_details'),
     path('api/lista_categorias/', CategoriaListaCreateView.as_view(), name='api_lista_categorias'),
+    path('api/blogselect/', vista_select_related, name='blogselect'),
+    path('sentry-debug/', trigger_error),
 
 ]
